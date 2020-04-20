@@ -28,7 +28,7 @@ function MainStackNavigator() {
         <Stack.Screen
           name='Sign Up'
           component={SignUp}
-          options={{ title: 'Sign Up Screen', headerShown: true }}
+          options={{ title: 'Sign Up Screen' }}
         />
         <Stack.Screen
           name='MaterialTopTab'

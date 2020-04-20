@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     containerModal: {
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#abc'
     },
     textModal: {
         color: '#FFF',

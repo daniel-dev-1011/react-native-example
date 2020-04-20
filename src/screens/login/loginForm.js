@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
-import {saveUserInfo, getUserInfo} from '../../storage/DataUtils';
+import {saveUserInfo} from '../../utils/DataUtils';
+import store from '../../redux/store/reduxStore';
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -14,6 +15,26 @@ export default class LoginForm extends Component {
     this.state = {textPassword: ''};
     this.state = {textError: ''};
     this.state = {show: false};
+  }
+
+  componentDidMount = () => { this._getUserInfoStateFromRedux() }
+
+  _getUserInfoStateFromRedux = () => {
+    store.subscribe(() => {
+      this.setState({
+        textLogin: store.getState().userName,
+        textPassword: store.getState().passWord,
+      })
+    });
+  }
+
+  _checkIfLoginInfoValid = () => {
+      if (this.state.textLogin === store.getState().userName &&
+      this.state.textPassword === store.getState().passWord) {
+        this._navigateToMainScreen()
+      } else {
+        alert('Wrong username or password!')
+      }
   }
 
   ShowHideComponent = () => {
@@ -53,7 +74,7 @@ export default class LoginForm extends Component {
 
   _navigateToMainScreen = () => {
     this.props.nav.navigate('MaterialTopTab');
-    // Save username and password to local
+    // Save username and password to async
     var userInfo = {
       username: this.state.textLogin, 
       password: this.state.textPassword
@@ -116,12 +137,10 @@ export default class LoginForm extends Component {
 
           {this._showHideErrorPassword()}
           
-          {/* <View style={styles.buttonContainer}> */}
-              <TouchableOpacity style={styles.buttonLogin}
-              onPress={this._navigateToMainScreen}>
-                <Text style={styles.btnTextLogin}>LOGIN</Text>
-              </TouchableOpacity>
-          {/* </View> */}
+          <TouchableOpacity style={styles.buttonLogin}
+          onPress={this._checkIfLoginInfoValid}>
+            <Text style={styles.btnTextLogin}>LOGIN</Text>
+          </TouchableOpacity>
       </View>
     );
   }

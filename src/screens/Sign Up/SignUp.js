@@ -1,24 +1,33 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, Alert, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight, TextInput, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { getUserInfo } from '../../storage/DataUtils';
+import { getUserInfo } from '../../utils/DataUtils';
+import * as Progress from 'react-native-progress';
+import Modal from 'react-native-modal';
+import store from '../../redux/store/reduxStore';
+import { addUserInfo } from '../../redux/action/index';
 
 export default class SignUp extends Component {
     constructor(props) {
         super(props);
-        const {route}  = props
-        const {item} = route.params
+        // const {route}  = props
+        // const {item} = route.params
+        const {navigation} = props
         this.state = {
-            // fullName: item.name,
             fullName: '',
             email: '',
             password: '',
+            isVisible: false,
+            navigation: navigation,
+            userInfo: store.getState(),
         }
     }
 
     componentDidMount = () => this._setDataForEmailField()
+
+    toggleModal = () => { this.setState({isVisible: !this.state.isVisible}) };
 
     _setDataForEmailField = () => {
         getUserInfo().then((value) => {
@@ -26,17 +35,38 @@ export default class SignUp extends Component {
                 email: value.username,
                 password: value.password,
             })
+        }).catch((error) => {
+            console.log('There has been a problem when get data from async: ' + error.message);
         })
     }
 
-    _onClickListener = () => {
-        Alert.alert('Error', `Username is ${this.state.fullName}`, [
-        { 
-            text: "OK"
-        }
-        ],
-        { cancelable: true }
-    );
+    showModal = () => {
+        return(
+            <Modal isVisible={this.state.isVisible}>
+                <View style={styles.containerModal}>
+                    <Progress.Circle style={{marginEnd: 20}} size={40} borderWidth={3} color={'#363636'} indeterminate={true} />
+                    <Text style={styles.signUpText}>Please wait ...</Text>
+                </View>
+            </Modal> 
+        )
+    }
+
+    _saveUserInfoToReduxStore = () => {
+        store.dispatch(
+            addUserInfo(this.state.email, this.state.password)
+          );
+    }
+
+    navigateLoginScreen = () => {
+        this.state.navigation.navigate('Login', {
+            username: this.state.email,
+            password: this.state.password,
+          })
+    }
+
+    _setTiming = (duration) => {
+        setTimeout(this.toggleModal, duration);
+        setTimeout(this.navigateLoginScreen, duration);
     }
     
 
@@ -72,9 +102,14 @@ export default class SignUp extends Component {
                         onChangeText={(password) => this.setState({password})}/>
                 </View>
 
-                <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]} onPress={() => {this._onClickListener()}}>
+                <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]} onPress={() => { 
+                    this._saveUserInfoToReduxStore(),
+                    this.toggleModal(),
+                    this._setTiming(3000)}}>
                     <Text style={styles.signUpText}>Sign up</Text>
                 </TouchableHighlight>
+
+                {this.showModal()}
             </View>
         );
     }
@@ -86,6 +121,27 @@ const styles = StyleSheet.create({
         backgroundColor: '#00b5ec',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    containerModal: {
+        backgroundColor: '#FFF',
+        flexDirection: "row",
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: 'center',
+        alignSelf: 'center',
+        padding: 10,
+    },
+    modal: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonDismiss: {
+        height: 50,
+        backgroundColor: '#363636',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 6,
+        padding: 10,
     },
     fullnameContainer: {
         borderRadius: 30,
@@ -142,6 +198,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF4DFF",
     },
     signUpText: {
-        color: 'white',
+        color: '#363636',
     },
 });

@@ -6,9 +6,7 @@ import LoginForm from './loginForm';
 
 function Login(props) {
   const { navigation } = props;
-  const character = {
-    name: 'Luke Skywalker'
-  }
+
     return (
       <KeyboardAvoidingView
       behavior={Platform.Os == "ios" ? "padding" : "height"}
@@ -23,16 +21,14 @@ function Login(props) {
           </View>
           <View style={styles.formContainer}>
             <LoginForm nav = {navigation}/>
-
             <View style={styles.containerSignUp}>
               <Text style={styles.signUp}>Not a member ? </Text>
               <Text
               style={styles.forgotPassword}
-              onPress={() => navigation.navigate('Sign Up', {item: character})}>
+              onPress={() => navigation.navigate('Sign Up')}>
               Sign Up Now.
               </Text>
             </View>
-            
           </View>
         </View>
       </KeyboardAvoidingView>
