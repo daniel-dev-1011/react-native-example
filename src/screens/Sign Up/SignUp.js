@@ -8,12 +8,11 @@ import * as Progress from 'react-native-progress';
 import Modal from 'react-native-modal';
 import store from '../../redux/store/reduxStore';
 import { addUserInfo } from '../../redux/action/index';
+import { connect } from 'react-redux';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
     constructor(props) {
         super(props);
-        // const {route}  = props
-        // const {item} = route.params
         const {navigation} = props
         this.state = {
             fullName: '',
@@ -25,7 +24,7 @@ export default class SignUp extends Component {
         }
     }
 
-    componentDidMount = () => this._setDataForEmailField()
+    // componentDidMount = () => this._setDataForEmailField()
 
     toggleModal = () => { this.setState({isVisible: !this.state.isVisible}) };
 
@@ -51,6 +50,13 @@ export default class SignUp extends Component {
         )
     }
 
+    placeSubmitHandler = () => {
+        if(this.state.email.trim() === '' || this.state.password.trim() === '') {
+          return;
+        }
+        this.props.add(this.state.email, this.state.password);
+    }
+
     _saveUserInfoToReduxStore = () => {
         store.dispatch(
             addUserInfo(this.state.email, this.state.password)
@@ -69,7 +75,6 @@ export default class SignUp extends Component {
         setTimeout(this.navigateLoginScreen, duration);
     }
     
-
     render() {
         return (
             <View style={styles.container}>
@@ -103,7 +108,7 @@ export default class SignUp extends Component {
                 </View>
 
                 <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]} onPress={() => { 
-                    this._saveUserInfoToReduxStore(),
+                    this.placeSubmitHandler(),
                     this.toggleModal(),
                     this._setTiming(3000)}}>
                     <Text style={styles.signUpText}>Sign up</Text>
@@ -114,6 +119,12 @@ export default class SignUp extends Component {
         );
     }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+    add: (username, password) => dispatch(addUserInfo(username, password))
+  });
+
+export default connect(null, mapDispatchToProps) (SignUp)
 
 const styles = StyleSheet.create({
     container: {

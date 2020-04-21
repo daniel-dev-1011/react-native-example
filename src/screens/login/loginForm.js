@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
-import {saveUserInfo} from '../../utils/DataUtils';
-import store from '../../redux/store/reduxStore';
+import { connect } from 'react-redux';
+import {addUserInfo} from '../../redux/action/index';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = { containerTopMargin : 10 }
@@ -17,24 +17,13 @@ export default class LoginForm extends Component {
     this.state = {show: false};
   }
 
-  componentDidMount = () => { this._getUserInfoStateFromRedux() }
+  UNSAFE_componentWillReceiveProps = () => { this.onInfoChange() }
 
-  _getUserInfoStateFromRedux = () => {
-    store.subscribe(() => {
-      this.setState({
-        textLogin: store.getState().userName,
-        textPassword: store.getState().passWord,
-      })
-    });
-  }
-
-  _checkIfLoginInfoValid = () => {
-      if (this.state.textLogin === store.getState().userName &&
-      this.state.textPassword === store.getState().passWord) {
-        this._navigateToMainScreen()
-      } else {
-        alert('Wrong username or password!')
-      }
+  onInfoChange = () => {
+    this.setState({
+      textLogin: this.props.email,
+      textPassword: this.props.password,
+    })
   }
 
   ShowHideComponent = () => {
@@ -63,23 +52,21 @@ export default class LoginForm extends Component {
     });
   }
 
-  _onPressButton = () => {
-    alert('username: ' + this.state.textLogin + '\n' + 'password: ' + this.state.textPassword)
-  }
-
   validateEmail = email => {
-    var re = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+    return this.props.showOrHideError(email);
   };
 
   _navigateToMainScreen = () => {
-    this.props.nav.navigate('MaterialTopTab');
-    // Save username and password to async
-    var userInfo = {
-      username: this.state.textLogin, 
-      password: this.state.textPassword
-    };
-    saveUserInfo(userInfo);
+    this.props.onSubmitted(this.state.textLogin, this.state.textPassword);
+  }
+
+  _shouldAllowLogin = () => {
+    if (this.state.show || 
+      (this.state.textPassword === '' || typeof this.state.textPassword === 'undefined')) {
+      alert('Please correct username/password!')
+    } else {
+      this._navigateToMainScreen();
+    }
   }
   
   render() {
@@ -98,14 +85,14 @@ export default class LoginForm extends Component {
                 keyboardType='email-address'
                 onChangeText={(textLogin) => this.setState({textLogin}, () => {
                   if (textLogin == '') {
-                    if (this.state.show == true) {
+                    if (this.state.show) {
                       this._toggleCancel()
                     }
                   } else if (!this.validateEmail(textLogin)) {
-                    if (this.state.show == false) {
+                    if (!this.state.show) {
                       this._toggleCancel()
                     }
-                  } else if (this.state.show == true) {
+                  } else if (this.state.show) {
                     this._toggleCancel()
                   }
                 })}
@@ -131,20 +118,28 @@ export default class LoginForm extends Component {
             placeholder='Password'
             onChangeText={(textPassword) => this.setState({textPassword})}
             value={this.state.textPassword}
-            ref={(input)=>this.secondTextInput = input}
-            onSubmitEditing={()=>this._onPressButton()} />
+            ref={(input)=>this.secondTextInput = input} />
           </View>
 
           {this._showHideErrorPassword()}
           
           <TouchableOpacity style={styles.buttonLogin}
-          onPress={this._checkIfLoginInfoValid}>
+          onPress={this._shouldAllowLogin}>
             <Text style={styles.btnTextLogin}>LOGIN</Text>
           </TouchableOpacity>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state = {}) => {
+  return {
+    email: state.userName,
+    password: state.passWord,
+  }
+}
+
+export default connect(mapStateToProps, {addUserInfo}) (LoginForm)
 
 const styles = StyleSheet.create ({
   usernameSection: {
