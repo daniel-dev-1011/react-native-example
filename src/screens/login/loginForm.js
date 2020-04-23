@@ -13,17 +13,16 @@ class LoginForm extends Component {
     this.state = { containerTopMargin : 10 }
     this.state = {textLogin: ''};
     this.state = {textPassword: ''};
-    this.state = {textError: ''};
     this.state = {show: false};
   }
 
-  UNSAFE_componentWillReceiveProps = () => { this.onInfoChange() }
-
-  onInfoChange = () => {
-    this.setState({
-      textLogin: this.props.email,
-      textPassword: this.props.password,
-    })
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
+    if (nextProps.email !== this.props.email) {
+      this.setState({
+        textLogin: nextProps.email,
+        textPassword: nextProps.password,
+      })
+    }
   }
 
   ShowHideComponent = () => {
@@ -139,7 +138,7 @@ const mapStateToProps = (state = {}) => {
   }
 }
 
-export default connect(mapStateToProps, {addUserInfo}) (LoginForm)
+export default connect(mapStateToProps, null) (LoginForm)
 
 const styles = StyleSheet.create ({
   usernameSection: {

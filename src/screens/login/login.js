@@ -4,21 +4,39 @@ import React, { Component } from 'react';
 import {StyleSheet, View, Image, Text, StatusBar, KeyboardAvoidingView, Platform} from 'react-native';
 import {saveUserInfo} from '../../utils/DataUtils';
 import LoginForm from './loginForm';
-import {BASE_URL} from '../../utils/Constants';
 import {isNetworkConnection} from '../../utils/StateUtils';
 import Modal from 'react-native-modal';
 import * as Progress from 'react-native-progress';
+import { login, loginSucces, loginFail } from '../../redux/action/index';
+import { connect } from 'react-redux';
+import store from '../../redux/store/reduxStore';
+import { convertErrorCode } from '../../utils/ErrorUtils';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isVisible: false,
+      username: '',
+      password: '',
     };
   }
 
-  toggleModal = () => {
-    this.setState({isVisible: !this.state.isVisible})
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
+    if (this.props.name !== nextProps.name) {
+      this._navigateToMainScreen();
+    } else if (nextProps.errorCode) {
+      alert(convertErrorCode(nextProps.errorCode))
+    }
+  }
+
+  _startLoginSession = async (username, password) => {
+    const connection = await isNetworkConnection()
+    if (connection.isConnected) {
+      store.dispatch(login(username, password, true))
+    } else {
+      alert(convertErrorCode('0000')) // 0000 is 'no internet connection' code
+    }
   }
 
   render() {
@@ -37,10 +55,9 @@ export default class Login extends Component {
           <View style={styles.formContainer}>
             <LoginForm
             showOrHideError = {(username) => this._validateEmail(username)}
-            onSubmitted = {(username, password) => {
-              this.getUser(username, password)
-              this.toggleModal()}
-            }/>
+            onSubmitted = {(username, password) => { 
+              this._startLoginSession(username, password)
+            }}/>
             <View style={styles.containerSignUp}>
               <Text style={styles.signUp}>Not a member ? </Text>
               <Text
@@ -51,9 +68,13 @@ export default class Login extends Component {
             </View>
           </View>
         </View>
-        {this.showModal(this.state.isVisible)}
+        {this.showModal(this.props.isLoading)}
       </KeyboardAvoidingView>
     );
+  }
+
+  toggleModal = () => {
+    this.setState({isVisible: !this.state.isVisible})
   }
 
 _navigateToMainScreen = (username, password) => {
@@ -70,40 +91,6 @@ _validateEmail = email => {
   return pattern.test(email);
 };
 
-getUser = async (email, password) => {
-  const isConnected =  await isNetworkConnection();
-  if (isConnected) {
-    return fetch(BASE_URL, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-    })
-    .then((response) => response.json())
-    .then((json) => {    
-      if (json.success) {
-        this._navigateToMainScreen(email, password)
-      } else {
-        alert('Wrong username or password!')
-      }
-      this.state.isVisible ? this.toggleModal() : null
-    })
-    .catch((error) => {
-      console.error(error);
-      this.state.isVisible ? this.toggleModal() : null
-      alert('Error while logging in, please try again later')
-    });
-  } else {
-    this.state.isVisible ? this.toggleModal() : null
-    alert('No internet connection. Please try again.')
-  }
-}
-
 showModal = (isVisible) => {
   return(
       <Modal isVisible={isVisible}>
@@ -113,6 +100,30 @@ showModal = (isVisible) => {
       </Modal> 
   )}
 }
+
+// const mapDispatchToProps = (dispatch) => ({
+//   login: (username, password) => dispatch(login(username, password))
+// });
+
+const mapStateToProps = (state = {}) => {
+  if (state.isLoading) {
+    return {
+      isLoading: state.isLoading,
+    }
+  } else if (state.errorCode) {
+    return {
+      isLoading: state.isLoading,
+      errorCode: state.errorCode,
+    }
+  } else {
+    return {
+      isLoading: state.isLoading,
+      name: state.name
+    }
+  }
+}
+
+export default connect(mapStateToProps, {login, loginSucces, loginFail}) (Login)
 
 const styles = StyleSheet.create({
   container: {
