@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getUserInfo } from '../../utils/DataUtils';
 import * as Progress from 'react-native-progress';

@@ -10,6 +10,7 @@ function* login(action) {
         if (result.data.success) {
             yield put({type: LOGIN_SUCCESS, payload: {
                 name: result.data.user.full_name, 
+                imageUrl: result.data.user.avatar.thumb_url,
                 isLoading: false } 
             })
         } else {

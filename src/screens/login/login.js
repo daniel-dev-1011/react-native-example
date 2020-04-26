@@ -97,15 +97,15 @@ class Login extends Component {
 
 _saveUserInfo = () => {
   var userInfo = {
-    username: this.props.userName, 
-    password: this.props.passWord,
+    username: this.props.name, 
+    imageUrl: this.props.imageUrl,
   };
   saveUserInfo(userInfo);
 }
 
 _navigateToMainScreen = () => {
   this.props.navigation.dispatch(
-    StackActions.replace('MaterialTopTab')
+    StackActions.replace('Drawer')
   );
 }
 
@@ -134,7 +134,8 @@ const mapStateToProps = (state = {}) => {
       return {
         state: state.state,
         isLoading: state.isLoading,
-        name: state.name
+        name: state.name,
+        imageUrl: state.imageUrl,
       } 
     case LOGIN_FAIL: 
       return {

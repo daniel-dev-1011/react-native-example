@@ -40,6 +40,7 @@ export function loginSucces(name, isLoading) {
     type: LOGIN_SUCCESS,
     payload: {
       name,
+      imageUrl,
       isLoading,
     }
   }

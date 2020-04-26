@@ -27,6 +27,7 @@ const addCurrentUser = (state = initialState, action) => {
       return state = {
         state: action.type,
         name: action.payload.name,
+        imageUrl: action.payload.imageUrl,
         isLoading: action.payload.isLoading,
       }
     }
