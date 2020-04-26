@@ -82,7 +82,7 @@ class Login extends Component {
             onSubmitted = {(username, password) => { 
               this._startLoginSession(username, password)}}/>
             <View style={styles.containerSignUp}>
-              <Text style={styles.signUp}>Not a member ?   </Text>
+              <Text style={styles.signUp}>Not a member ?  </Text>
               <Text
               style={styles.forgotPassword}
               onPress={() => this.props.navigation.navigate('Sign Up')}>Sign Up Now.</Text>
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: '#000',
     textAlign: 'center',
-    fontFamily: 'FontAwesome',
+    fontFamily: 'DancingScriptOT',
   },
   formContainer: {
     marginTop: 30,
@@ -188,14 +188,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#87CEFA',
     textAlign: 'center',
-    fontFamily: 'FontAwesome',
+    fontFamily: 'DancingScriptOT',
     textDecorationLine: 'underline',
   },
   signUp: {
     fontSize: 20,
     color: '#000',
     textAlign: 'center',
-    fontFamily: 'FontAwesome',
+    fontFamily: 'DancingScriptOT',
     textDecorationLine: 'none',
   },
   containerSignUp: {
