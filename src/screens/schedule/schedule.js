@@ -1,33 +1,44 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
-import React, { Component, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, Button } from 'react-native';
-import Modal from 'react-native-modal';
+import React, { useState, useEffect } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import ItemRow from '../schedule/itemRow';
+import { getBook, getBookSuccess, getBookFail } from '../../redux/action/index';
+import { fetchAPI, deleteAPI } from './Presenters/fetchAPI';
+import { connect } from 'react-redux';
+import MyFloatingButton from '../../components/MyFloatingButton';
 
-function showModal() {
-  const [isVisible, setVisible] = useState(false);
+function ListView(props) {
+  const [data, setData] = useState(props.data);
 
-  var toggleModal = () => { setVisible(!isVisible) };
+  useEffect(() => {
+    if (props.data) {
+      setData(props.data)
+    } else {
+      // props.getBook()
+    }
+  }, [props.data])
 
   return (
-      <View style={styles.container}>
-        <Button title="Show modal" onPress={toggleModal}/>
-        <Modal isVisible={isVisible}>
-          <View style={{flex: 1}}>
-            <Text>Hello!</Text>
-            <Button title="Hide modal" onPress={toggleModal}/>
-          </View>
-        </Modal>
-      </View>
-    );
+    <View style={styles.container}>
+      <FlatList
+        data={data}
+        renderItem={({ item }) => 
+        <ItemRow
+          onDelete={(title) => deleteAPI(title)}
+          bookTitle={item.title}
+          price={item.price} />}
+        keyExtractor={(item, index) => index.toString()}
+      />
+      <MyFloatingButton />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
-   paddingTop: 22,
-   justifyContent: 'center',
-   alignItems: 'center',
+    flex: 1,
+    paddingTop: 16,
   },
   item: {
     padding: 10,
@@ -36,4 +47,23 @@ const styles = StyleSheet.create({
   },
 })
 
-export default showModal
+const mapStateToProps = (state = {}) => {
+  if (state.getBookReducers) {
+    if (state.getBookReducers.data) {
+      return {
+        data: state.getBookReducers.data,
+      }
+    }
+  } else if (state.addBookReducers) {
+    if (state.addBookReducers.status === 'ok') {
+      fetchAPI()
+    }
+  }
+  return {};
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getBook: () => dispatch(getBook())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps) (ListView)

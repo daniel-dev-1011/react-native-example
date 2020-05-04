@@ -2,14 +2,14 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import MyStatusBar from '../components/MyStatusBar';
-import {StyleSheet} from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Contact from '../screens/main/Contact';
 import Schedule from '../screens/schedule/schedule';
 import { View } from 'react-native';
 import MyTabBar from '../components/MyTabBar';
 import { connect } from 'react-redux';
-import { loginSucces, LOGIN_SUCCESS } from '../redux/action/index';
+import { LOGIN_SUCCESS } from '../redux/action/index';
+import MyProfile from '../screens/MyProfile/MyProfile';
 
 const Tab = createMaterialTopTabNavigator()
 
@@ -17,42 +17,47 @@ class MyTabs extends Component {
   constructor(props) {
     super(props);
   }
+  
+  showTabNavigator = () => {
+    if (!this.props.shouldShowProfile) {
+      return(
+        <Tab.Navigator
+          tabBarOptions={{indicatorStyle: {backgroundColor: '#363636'}}}>
+          <Tab.Screen name="Contact" component={Contact} />
+          <Tab.Screen name="Book Collection" component={Schedule} />
+        </Tab.Navigator>
+      )
+    } else {
+      return (
+        <MyProfile />
+      )
+    }
+  }
 
   render() {
     return (
-      <View style={styles.view}>
-      <MyStatusBar backgroundColor='#FFF' barStyle='dark-content'/>
-      <MyTabBar
-      navigation={this.props.navigation}
-      imageUrl={this.props.imageUrl}
-      userName={this.props.name}/>
-      <Tab.Navigator
-        tabBarOptions={{indicatorStyle: {backgroundColor: '#363636'}}}>
-      <Tab.Screen name="Contact" component={Contact} />
-      <Tab.Screen name="Schedule" component={Schedule} />
-      </Tab.Navigator>
+      <View style={{flex: 1}}>
+        <MyStatusBar backgroundColor='#FFF' barStyle='dark-content'/>
+        <MyTabBar
+        navigation={this.props.navigation}
+        imageUrl={this.props.imageUrl}
+        userName={this.props.name}/>
+        {this.showTabNavigator()}
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-  },
-})
-
-const mapStateToProps = (state = {}) => {
-  switch (state.state) {
-    case LOGIN_SUCCESS:
+const mapStateToProps = (state) => {
+  if (state.addCurrentUser !== null) {
+    if (state.addCurrentUser.state === LOGIN_SUCCESS) {
       return {
-        state: state.state,
-        name: state.name,
-        imageUrl: state.imageUrl,
+        name: state.addCurrentUser.name,
+        imageUrl: state.addCurrentUser.imageUrl,
       }
-    default:
-      return {}
+    }
   }
+  return {};
 }
 
-export default connect(mapStateToProps, {loginSucces}) (MyTabs)
+export default connect(mapStateToProps) (MyTabs)

@@ -9,7 +9,7 @@ export const getUserInfo = async () => {
         if (value !== null) {
             return JSON.parse(value) //userData is Object
         } else {
-            // alert('Failed to retrieve info.')
+            
         }
     } catch (error) {
         alert('Failed to retrieve info.')
@@ -21,5 +21,15 @@ export const saveUserInfo = async (info) => {
         await AsyncStorage.setItem('userInfo', JSON.stringify(info));
     } catch {
         alert('Failed to save name.')
+    }
+}
+
+export const deleteData = async (key) => {
+    try {
+        await AsyncStorage.removeItem(key);
+        return true;
+    } catch (error) {
+        console.log('error while delete data async: ', error);
+        return false;
     }
 }

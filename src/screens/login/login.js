@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
 import React, { Component } from 'react';
-import {StyleSheet, View, Image, Text, StatusBar, KeyboardAvoidingView, Platform} from 'react-native';
+import {StyleSheet, View, Image, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import {saveUserInfo, getUserInfo} from '../../utils/DataUtils';
 import LoginForm from './loginForm';
 import {isNetworkConnection} from '../../utils/StateUtils';
@@ -14,6 +14,7 @@ import { convertErrorCode } from '../../utils/ErrorUtils';
 import SplashScreen from 'react-native-splash-screen';
 import { StackActions } from '@react-navigation/native';
 import MyStatusBar from '../../components/MyStatusBar';
+import MyModal from '../../components/MyModal';
 
 class Login extends Component {
   constructor(props) {
@@ -30,22 +31,25 @@ class Login extends Component {
     var user = await getUserInfo();
     if (typeof user !== 'undefined') {
       this.setState({isRender: false})
+      this.dispatchDataUser(user)
       this._navigateToMainScreen()
-    } else { 
+    } else {
       this.setState({isRender: true})
     }
     SplashScreen.hide();
   }
 
+  dispatchDataUser = (user) => {
+    this.props.loginSucces(user.full_name, user.avatar.original_url, false, user)
+  }
+
   componentDidUpdate = () => {
     switch (this.props.state) {
       case LOGIN_SUCCESS: {
-        this._saveUserInfo();
+        if (this.state.isRender) {
+          this._saveUserInfo();
+        }
         this._navigateToMainScreen();
-        break;
-      }
-      case LOGIN_FAIL: {
-        alert(convertErrorCode(this.props.errorCode))
         break;
       }
       default:
@@ -56,7 +60,7 @@ class Login extends Component {
   _startLoginSession = async (username, password) => {
     const connection = await isNetworkConnection()
     if (connection.isConnected) {
-      store.dispatch(login(username, password, true))
+      this.props.login(username, password, true)
     } else {
       alert(convertErrorCode('0000')) // 0000 is 'no internet connection' code
     }
@@ -90,17 +94,14 @@ class Login extends Component {
           </View>
         </View>
         {this.showModal(this.props.isLoading)}
+        <MyModal visible={typeof this.props.errorCode !== 'undefined'} errorCode={(this.props.errorCode)}/>
       </KeyboardAvoidingView>
     );
     } else return null;
   }
 
 _saveUserInfo = () => {
-  var userInfo = {
-    username: this.props.name, 
-    imageUrl: this.props.imageUrl,
-  };
-  saveUserInfo(userInfo);
+  saveUserInfo(this.props.user);
 }
 
 _navigateToMainScreen = () => {
@@ -116,46 +117,56 @@ _validateEmail = email => {
 
 showModal = (isVisible) => {
   return(
-      <Modal isVisible={isVisible}>
-        <View style={styles.modalContainer}>
-          <Progress.Circle borderWidth={4} color={'#FFF'} indeterminate={true} />
-        </View>
-      </Modal> 
+    <Modal isVisible={isVisible}>
+      <View style={styles.modalContainer}>
+        <Progress.Circle borderWidth={4} color={'#FFF'} indeterminate={true} />
+      </View>
+    </Modal> 
   )}
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   login: (username, password) => dispatch(login(username, password))
-// });
-
 const mapStateToProps = (state = {}) => {
-  switch (state.state) {
+  if (state.addCurrentUser == null) {
+    if (state.logOut !== null) {
+      return {
+        state: state.logOut.state,
+      }
+    } else return {}
+  } else {
+    switch (state.addCurrentUser.state) {
     case LOGIN_SUCCESS:
       return {
-        state: state.state,
-        isLoading: state.isLoading,
-        name: state.name,
-        imageUrl: state.imageUrl,
+        state: state.addCurrentUser.state,
+        isLoading: state.addCurrentUser.isLoading,
+        user: state.addCurrentUser.user,
       } 
-    case LOGIN_FAIL: 
+    case LOGIN_FAIL:
       return {
-        state: state.state,
-        isLoading: state.isLoading,
-        errorCode: state.errorCode,
+        state: state.addCurrentUser.state,
+        isLoading: state.addCurrentUser.isLoading,
+        errorCode: state.addCurrentUser.errorCode,
       }
     case LOGIN:
       return {
-        userName: state.userName,
-        passWord: state.passWord,
-        state: state.state,
+        userName: state.addCurrentUser.userName,
+        passWord: state.addCurrentUser.passWord,
+        state: state.addCurrentUser.state,
         isLoading: true,
       }
     default:
       return {}
+    }
   }
 }
 
-export default connect(mapStateToProps, {login, loginSucces, loginFail}) (Login)
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (email, password, isLoading) => dispatch(login(email, password, isLoading)),
+    loginSucces: (name, imageUrl, isLoading, user) => dispatch(loginSucces(name, imageUrl, isLoading, user)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Login)
 
 const styles = StyleSheet.create({
   container: {

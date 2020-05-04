@@ -7,7 +7,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from '../screens/login/login';
 import SignUp from '../screens/Sign Up/SignUp';
-import MaterialTopTab from './MaterialTopTabNavigation';
 import DrawerNavigation from './DrawerNavigation';
 
 const Stack = createStackNavigator()
@@ -35,11 +34,7 @@ function MainStackNavigator() {
           name='Drawer'
           component={DrawerNavigation}
         />
-        {/* <Stack.Screen
-          name='MaterialTopTab'
-          component={MaterialTopTab}
-        /> */}
-      </Stack.Navigator>
+        </Stack.Navigator>
     </NavigationContainer>
   )
 }

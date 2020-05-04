@@ -20,11 +20,8 @@ class SignUp extends Component {
             password: '',
             isVisible: false,
             navigation: navigation,
-            userInfo: store.getState(),
         }
     }
-
-    // componentDidMount = () => this._setDataForEmailField()
 
     toggleModal = () => { this.setState({isVisible: !this.state.isVisible}) };
 

@@ -1,17 +1,23 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
 import { createStore, applyMiddleware } from "redux";
-import rootReducer from "../reducer/index";
+import rootReducers from "../reducer/index";
 import createSagaMiddleware from 'redux-saga';
+import { createEpicMiddleware } from 'redux-observable';
+import userEpic from '../observable/epic';
 import rootSaga from '../saga/saga';
 
 const sagaMiddleware = createSagaMiddleware()
 
+const epicMiddleware = createEpicMiddleware()
+
 const store = createStore(
-    rootReducer,
-    applyMiddleware(sagaMiddleware)
+    rootReducers,
+    applyMiddleware(epicMiddleware)
 )
 
-sagaMiddleware.run(rootSaga)
+epicMiddleware.run(userEpic)
+
+// sagaMiddleware.run(rootSaga)
 
 export default store
