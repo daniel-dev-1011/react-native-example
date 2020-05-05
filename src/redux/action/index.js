@@ -32,6 +32,9 @@ export const DELETE_BOOK = 'DELETE_BOOK'
 export const DELETE_BOOK_SUCCESS = 'DELETE_BOOK_SUCCESS'
 export const DELETE_BOOK_FAIL = 'DELETE_BOOK_FAIL'
 
+//CHANGE IMAGE PROFILE
+export const CHANGE_IMAGE_PROFILE = 'CHANGE_IMAGE_PROFILE'
+
 /*
 * action creators (functions below is called Flux Standard Action)
 */
@@ -211,7 +214,20 @@ export function deleteBookFail(isError) {
   return {
     type: DELETE_BOOK_FAIL,
     payload: {
-      isError,
+      isError
     }
   }
 }
+
+/**
+ * Change Profile Images
+ */
+
+ export function changeProfile(uri) {
+  return {
+    type: CHANGE_IMAGE_PROFILE,
+    payload: {
+      uri
+    }
+  }
+ }

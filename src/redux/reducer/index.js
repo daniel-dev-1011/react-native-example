@@ -5,6 +5,7 @@ import {REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAIL} from '../actio
 import {ADD_BOOK, ADD_BOOK_SUCCESS, ADD_BOOK_FAIL} from '../action/index';
 import {GET_ALL_BOOKS, GET_ALL_BOOKS_SUCCESS, GET_ALL_BOOKS_FAIL} from '../action/index';
 import {DELETE_BOOK, DELETE_BOOK_SUCCESS, DELETE_BOOK_FAIL} from '../action/index';
+import {CHANGE_IMAGE_PROFILE} from '../action/index';
 import { combineReducers } from 'redux';
 
 export const ADD_CURRENT_USER = 'addCurrentUser'
@@ -129,9 +130,18 @@ const addCurrentUser = (state = {}, action) => {
   }
 }
 
+const changeImageProfile = (state = {}, action) => {
+  if (action.type === CHANGE_IMAGE_PROFILE) {
+    return state = {
+      uri: action.payload.uri
+    }
+  } else return null;
+}
+
 const rootReducers = combineReducers({
   addCurrentUser,
   logOut,
+  changeImageProfile
 })
 
 export default rootReducers

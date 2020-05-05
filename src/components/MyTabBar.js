@@ -1,21 +1,31 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
 import {StyleSheet, Text, Image, Platform} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { connect } from 'react-redux';
 
-const myTabBar = ({imageUrl, userName, navigation}) => {
+function myTabBar(props) {
+  const [imageProfile, setImageProfile] = useState(props.imageUrl)
+  const [username] = useState(props.name);
+
+  useEffect(() => {
+    if (props.uri) {
+      setImageProfile(props.uri)
+    }
+  }, [props.uri]);
+
   return (
     <View style={styles.containerTabbar}>
       <Button style={styles.buttonDrawer}
       type="clear"
       icon={<Icon name="bars" size={20} />} 
-      onPress={() => navigation.toggleDrawer()}></Button>
-      <Text style={styles.text}>{userName}</Text>
+      onPress={() => props.navigation.toggleDrawer()}></Button>
+      <Text style={styles.text}>{username}</Text>
       <Image style={styles.image} 
-      source={{uri: imageUrl}}></Image>
+      source={{uri: imageProfile}}></Image>
     </View>
   )  
 }
@@ -58,5 +68,14 @@ const myTabBar = ({imageUrl, userName, navigation}) => {
         alignSelf: 'center',
     },
   })
+
+  const mapStateToProps = (state = {}) => {
+    if (state.changeImageProfile !== null) {
+      return {
+        uri: state.changeImageProfile.uri
+      }
+    } else 
+      return {}
+  }
   
-  export default myTabBar
+  export default connect(mapStateToProps, null) (myTabBar)

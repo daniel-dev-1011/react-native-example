@@ -9,7 +9,6 @@ import Modal from 'react-native-modal';
 import * as Progress from 'react-native-progress';
 import { login, loginSucces, loginFail, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL } from '../../redux/action/index';
 import { connect } from 'react-redux';
-import store from '../../redux/store/reduxStore';
 import { convertErrorCode } from '../../utils/ErrorUtils';
 import SplashScreen from 'react-native-splash-screen';
 import { StackActions } from '@react-navigation/native';

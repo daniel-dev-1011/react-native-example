@@ -16,7 +16,7 @@ const MyFloatingButton = () => {
         animated={false}
         onPressMain={() => setVisible(true)}/>
       <CreateBookModal 
-      onToggleModal={(shouldVisible) => setVisible(false)}
+      onToggleModal={() => setVisible(false)}
       visible={isVisible}/>
     </View>
   )

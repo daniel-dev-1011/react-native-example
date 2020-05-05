@@ -39,10 +39,10 @@ class MyTabs extends Component {
       <View style={{flex: 1}}>
         <MyStatusBar backgroundColor='#FFF' barStyle='dark-content'/>
         <MyTabBar
-        navigation={this.props.navigation}
-        imageUrl={this.props.imageUrl}
-        userName={this.props.name}/>
-        {this.showTabNavigator()}
+          navigation={this.props.navigation}
+          imageUrl={this.props.imageUrl}
+          name={this.props.name}/>
+          {this.showTabNavigator()}
       </View>
     );
   }
