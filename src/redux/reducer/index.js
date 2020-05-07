@@ -1,6 +1,6 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
-import {ADD_USER_INFO, LOGIN_SUCCESS, LOGIN_FAIL, LOGIN, LOGOUT} from '../action/index';
+import {ADD_USER_INFO, LOGIN_SUCCESS, LOGIN_FAIL, LOGIN, LOGOUT, CHANGE_LANGUAGE} from '../action/index';
 import {REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAIL} from '../action/index'
 import {ADD_BOOK, ADD_BOOK_SUCCESS, ADD_BOOK_FAIL} from '../action/index';
 import {GET_ALL_BOOKS, GET_ALL_BOOKS_SUCCESS, GET_ALL_BOOKS_FAIL} from '../action/index';
@@ -138,10 +138,19 @@ const changeImageProfile = (state = {}, action) => {
   } else return null;
 }
 
+const changeLanguage = (state = {}, action) => {
+  if (action.type === CHANGE_LANGUAGE) {
+    return state = {
+      lang: action.payload.lang,
+    }
+  } else return null;
+}
+
 const rootReducers = combineReducers({
   addCurrentUser,
   logOut,
-  changeImageProfile
+  changeImageProfile,
+  changeLanguage
 })
 
 export default rootReducers

@@ -16,3 +16,7 @@ export const GET_ALL_BOOKS = '/books'
 export const ADD_BOOK = '/books';
 
 export const DELETE_BOOK = '/books/';
+
+export const lang = ["ESPAÑOL", "PORTUGUÊS (BR)", "POLSKI", "Български", "DEUTSCH", "ENGLISH"]
+
+export const localize = ["es", "ptR", "po", "bl", "de", "en"]

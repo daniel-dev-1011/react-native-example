@@ -14,10 +14,10 @@ const MyFloatingButton = () => {
       <FloatingAction
         color={'#42f5e3'}
         animated={false}
-        onPressMain={() => setVisible(true)}/>
+        onPressMain={() => console.log('asdasdasd')} />
       <CreateBookModal 
-      onToggleModal={() => setVisible(false)}
-      visible={isVisible}/>
+        onToggleModal={(shouldShow) => setVisible(shouldShow)}
+        visible={isVisible}/>
     </View>
   )
 }

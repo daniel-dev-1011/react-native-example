@@ -5,63 +5,13 @@ import {StyleSheet, Text, View, Image, TouchableWithoutFeedback} from 'react-nat
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { LOGIN_SUCCESS } from '../../redux/action/index';
-import ImagePicker from 'react-native-image-picker';
 import {changeProfile} from '../../redux/action/index';
 import MyImagePickerModal from '../../components/MyImagePickerModal';
-
-const options = {
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
 
 function MyProfile(props) {
   const [filePath, setFilePath] = useState(props.imageUrl)
   const [username] = useState(props.name)
   const [shouldShow, setShouldShow] = useState(false)
-
-  const showCamera = () => {
-    setTimeout(() => {
-      ImagePicker.launchCamera(options, (response) => {
-        if (response.error) {
-          alert(response.error)
-        }
-
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        } else if (response.error) {
-          console.log('ImagePicker Error: ', response.error);
-        } else if (response.customButton) {
-          console.log('User tapped custom button: ', response.customButton);
-        } else {
-          props.changeProfile(response.uri)
-          setFilePath(response.uri)
-        }
-      });
-    }, 350);
-  }
-
-  const showGallery = () => {
-    setTimeout(() => {
-      ImagePicker.launchImageLibrary(options, (response) => {
-        if (response.error) {
-          alert(response.error)
-        }
-
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        } else if (response.error) {
-          console.log('ImagePicker Error: ', response.error);
-        } else if (response.customButton) {
-          console.log('User tapped custom button: ', response.customButton);
-        } else {
-          props.changeProfile(response.uri)
-          setFilePath(response.uri)
-        }
-      });
-    }, 350);
-  }
 
   return (
     <View style={styles.container}>
@@ -72,8 +22,7 @@ function MyProfile(props) {
       </TouchableWithoutFeedback> 
       <Text style={styles.name}>{username}</Text>
       <MyImagePickerModal
-      onChooseCamera={() => { setShouldShow(false), showCamera() }}
-      onChooseGallery={() => { setShouldShow(false), showGallery() }}
+      onImageChosen={(uri) => { props.changeProfile(uri), setFilePath(uri) }}
       onToggle={(shouldShow) => setShouldShow(shouldShow)}
       shouldShow={shouldShow} />
     </View>
@@ -95,6 +44,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 20,
     marginTop: 30,
+    textAlign: 'center',
   },
 })
 

@@ -10,6 +10,7 @@ import MyTabBar from '../components/MyTabBar';
 import { connect } from 'react-redux';
 import { LOGIN_SUCCESS } from '../redux/action/index';
 import MyProfile from '../screens/MyProfile/MyProfile';
+import ViewController from '../screens/todoList/ViewController';
 
 const Tab = createMaterialTopTabNavigator()
 
@@ -24,7 +25,7 @@ class MyTabs extends Component {
         <Tab.Navigator
           tabBarOptions={{indicatorStyle: {backgroundColor: '#363636'}}}>
           <Tab.Screen name="Contact" component={Contact} />
-          <Tab.Screen name="Book Collection" component={Schedule} />
+          <Tab.Screen name="To Do List" component={ViewController} />
         </Tab.Navigator>
       )
     } else {

@@ -1,19 +1,26 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
 import React, { Component } from 'react';
-import {StyleSheet, View, Image, Text, KeyboardAvoidingView, Platform} from 'react-native';
-import {saveUserInfo, getUserInfo} from '../../utils/DataUtils';
+import {StyleSheet, View, Image, Text, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, I18nManager} from 'react-native';
+import {saveUserInfo, getUserInfo, getImageResource} from '../../utils/DataUtils';
 import LoginForm from './loginForm';
 import {isNetworkConnection} from '../../utils/StateUtils';
 import Modal from 'react-native-modal';
 import * as Progress from 'react-native-progress';
-import { login, loginSucces, loginFail, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL } from '../../redux/action/index';
+import { login, loginSucces, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL } from '../../redux/action/index';
 import { connect } from 'react-redux';
 import { convertErrorCode } from '../../utils/ErrorUtils';
 import SplashScreen from 'react-native-splash-screen';
 import { StackActions } from '@react-navigation/native';
 import MyStatusBar from '../../components/MyStatusBar';
 import MyModal from '../../components/MyModal';
+import LinearGradient from "react-native-linear-gradient";
+import MyLanguageOptions from '../../components/MyLanguageOptions';
+//Using for Multi-Language
+import {setI18nConfig, translate, setI18nConfigure} from '../../translations/translationConfig';
+import * as RNLocalize from "react-native-localize";
+import i18n from 'i18n-js';
+import {getLocalize} from '../../utils/DataUtils';
 
 class Login extends Component {
   constructor(props) {
@@ -22,6 +29,9 @@ class Login extends Component {
       username: '',
       password: '',
       isRender: false,
+      shouldShow: false,
+      currentLang: 'ENGLISH',
+      currentLanguage: 'en',
     };
     this.checkIfUserIsExist()
   }
@@ -68,9 +78,18 @@ class Login extends Component {
   render() {
     if (this.state.isRender) {
       return (
-      <KeyboardAvoidingView
-        behavior={Platform.Os == "ios" ? "padding" : "height"}
-        style={styles.container} >
+        <LinearGradient
+        style={styles.container}
+        colors={[
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FCFFFF",
+          "#CEFFFB"
+        ]}>
+        <KeyboardAvoidingView
+        behavior={Platform.Os == "ios" ? "padding" : "height"} >
         <View>
           <MyStatusBar backgroundColor='#FFF' barStyle='dark-content'/>
           <View style={styles.logoContainer}>
@@ -82,19 +101,36 @@ class Login extends Component {
           <View style={styles.formContainer}>
             <LoginForm
             showOrHideError = {(username) => this._validateEmail(username)}
-            onSubmitted = {(username, password) => { 
-              this._startLoginSession(username, password)}}/>
+            onSubmitted = {(username, password) => { this._startLoginSession(username, password)}}/>
+
             <View style={styles.containerSignUp}>
               <Text style={styles.signUp}>Not a member ?  </Text>
               <Text
               style={styles.forgotPassword}
               onPress={() => this.props.navigation.navigate('Sign Up')}>Sign Up Now.</Text>
             </View>
+
+            <MyLanguageOptions 
+            shouldShow={this.state.shouldShow} 
+            currentLang={this.state.currentLang}
+            setLang={(newLang) => { 
+              this.setState({shouldShow: !this.state.shouldShow}), 
+              this.setState({currentLang: newLang})
+            }}/>
+
+            <TouchableWithoutFeedback onPress={() => this.setState({shouldShow: !this.state.shouldShow})}>
+              <View style={styles.containerLang}>
+              <Text style={{flex: 1, textAlign: 'center', color: '#777', fontSize: 14, marginEnd: -24}}>{this.state.currentLang}</Text>
+                <Image style={styles.image} source={getImageResource(this.state.currentLang)}/>
+              </View>
+            </TouchableWithoutFeedback>
+            
           </View>
         </View>
         {this.showModal(this.props.isLoading)}
         <MyModal visible={typeof this.props.errorCode !== 'undefined'} errorCode={(this.props.errorCode)}/>
       </KeyboardAvoidingView>
+      </LinearGradient>
     );
     } else return null;
   }
@@ -213,10 +249,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: 'center',
     marginTop: 10,
-    marginBottom: 15,
+    marginBottom: 30,
   },
   modalContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  containerLang: {
+    width: 231,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'space-around',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    paddingHorizontal: 8,
+  },
+  image: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+    alignSelf: 'center',
   },
 })

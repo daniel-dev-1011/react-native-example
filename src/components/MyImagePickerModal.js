@@ -3,8 +3,15 @@
 
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import ImagePicker from 'react-native-image-picker';
 import Modal from 'react-native-modal';
+import ImagePicker from 'react-native-image-picker';
+
+const options = {
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 function MyImagePickerModal(props) {
   const [isVisible, setVisible] = useState(props.shouldShow)
@@ -13,17 +20,59 @@ function MyImagePickerModal(props) {
     setVisible(props.shouldShow)
   }, [props.shouldShow])
 
+  const showCamera = () => {
+    props.onToggle(false)
+    setTimeout(() => {
+      ImagePicker.launchCamera(options, (response) => {
+        if (response.error) {
+          alert(response.error)
+        }
+
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        } else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        } else if (response.customButton) {
+          console.log('User tapped custom button: ', response.customButton);
+        } else {
+          props.onImageChosen(response.uri)
+        }
+      });
+    }, 350);
+  }
+
+  const showGallery = () => {
+    props.onToggle(false)
+    setTimeout(() => {
+      ImagePicker.launchImageLibrary(options, (response) => {
+        if (response.error) {
+          alert(response.error)
+        }
+
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        } else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        } else if (response.customButton) {
+          console.log('User tapped custom button: ', response.customButton);
+        } else {
+          props.onImageChosen(response.uri)
+        }
+      });
+    }, 350);
+  }
+
   return (
     <Modal isVisible={isVisible}>
       <View style={styles.container}> 
         <Text style={{fontSize: 28}}>Choose Images</Text>
 
         <View style={styles.containerOptions}>
-          <TouchableOpacity style={styles.buttonCamera} onPress={props.onChooseCamera}>
+          <TouchableOpacity style={styles.buttonCamera} onPress={showCamera}>
             <Text style={styles.text}>Camera</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonCamera} onPress={props.onChooseGallery}>
+          <TouchableOpacity style={styles.buttonCamera} onPress={showGallery}>
             <Text style={styles.text}>Gallery</Text>
           </TouchableOpacity>
         </View>

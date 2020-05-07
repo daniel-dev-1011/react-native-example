@@ -35,6 +35,9 @@ export const DELETE_BOOK_FAIL = 'DELETE_BOOK_FAIL'
 //CHANGE IMAGE PROFILE
 export const CHANGE_IMAGE_PROFILE = 'CHANGE_IMAGE_PROFILE'
 
+//CHANGE LANGUAGE
+export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE'
+
 /*
 * action creators (functions below is called Flux Standard Action)
 */
@@ -228,6 +231,18 @@ export function deleteBookFail(isError) {
     type: CHANGE_IMAGE_PROFILE,
     payload: {
       uri
+    }
+  }
+ }
+
+ /*
+  * 
+  */
+ export function changeLanguage(lang) {
+  return {
+    type: CHANGE_LANGUAGE,
+    payload: {
+      lang,
     }
   }
  }

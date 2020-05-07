@@ -6,14 +6,18 @@ import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import { connect } from 'react-redux';
 import {addUserInfo} from '../../redux/action/index';
+//Using for Multi-Language
+import {setI18nConfig, translate, setI18nConfigure} from '../../translations/translationConfig';
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { containerTopMargin : 10 }
-    this.state = {textLogin: ''};
-    this.state = {textPassword: ''};
-    this.state = {show: false};
+    this.state = {
+      textLogin: '',
+      textPassword: '',
+      currentLang: 'en',
+    };
+    this.state = {show: false}
   }
 
   UNSAFE_componentWillReceiveProps = (nextProps) => {
@@ -22,6 +26,9 @@ class LoginForm extends Component {
         textLogin: nextProps.email,
         textPassword: nextProps.password,
       })
+    } else if (nextProps.newLang) {
+      this.setState({currentLang: nextProps.newLang})
+      setI18nConfig()
     }
   }
 
@@ -69,6 +76,7 @@ class LoginForm extends Component {
   }
   
   render() {
+    setI18nConfigure(this.state.currentLang)
     return (
       <View style={styles.container}>
           <View style={styles.usernameSection}>
@@ -80,7 +88,7 @@ class LoginForm extends Component {
                 inputStyle={{ color: '#363636' }}
                 inputPadding={10}
                 returnKeyType='next'
-                placeholder='Username or Email'
+                placeholder={translate('email')}
                 keyboardType='email-address'
                 onChangeText={(textLogin) => this.setState({textLogin}, () => {
                   if (textLogin == '') {
@@ -114,7 +122,7 @@ class LoginForm extends Component {
             inputStyle={{ color: '#363636' }}
             inputPadding={10}
             secureTextEntry
-            placeholder='Password'
+            placeholder={translate('password')}
             onChangeText={(textPassword) => this.setState({textPassword})}
             value={this.state.textPassword}
             ref={(input)=>this.secondTextInput = input} />
@@ -124,7 +132,7 @@ class LoginForm extends Component {
           
           <TouchableOpacity style={styles.buttonLogin}
           onPress={this._shouldAllowLogin}>
-            <Text style={styles.btnTextLogin}>LOGIN</Text>
+            <Text style={styles.btnTextLogin}>{translate('login')}</Text>
           </TouchableOpacity>
       </View>
     );
@@ -132,10 +140,16 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = (state = {}) => {
-  return {
-    email: state.userName,
-    password: state.passWord,
-  }
+  if (state.addCurrentUser) {
+    return {
+      email: state.userName,
+      password: state.passWord,
+    }
+  } else if (state.changeLanguage) {
+    return {
+      newLang: state.changeLanguage.lang,
+    }
+  } else return {}  
 }
 
 export default connect(mapStateToProps, {addUserInfo}) (LoginForm)
@@ -155,9 +169,9 @@ const styles = StyleSheet.create ({
     marginTop: 10,
   },
   container: {
-      padding: 20,
-      marginBottom: 20,
-      overflow: 'hidden',
+    padding: 20,
+    marginBottom: 20,
+    overflow: 'hidden',
   },
   containerUserName: {
     marginBottom: 15,

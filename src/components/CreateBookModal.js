@@ -11,7 +11,6 @@ import { useDispatch } from 'react-redux';
 function CreateBookModal(props) {
   const [isVisible, setVisible] = useState(props.visible)
   const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
   const dispatch = useDispatch();
 
   const dispatchActionAddBook = () => {
@@ -39,22 +38,14 @@ function CreateBookModal(props) {
         <View style={styles.bookTitleInput}>
           <Icon name='email' size={25} color='#aaa' />
           <TextInput style={styles.inputs}
+            autoFocus
             onChangeText={(title) => setTitle(title)}
-            placeholder="Book Title"
-            underlineColorAndroid='transparent' />
-        </View>
-
-        <View style={styles.bookPriceContainer}>
-          <Icon name='lock' size={25} color='#aaa' />
-          <TextInput style={styles.inputs}
-            keyboardType='numeric'
-            placeholder="Book Price"
-            onChangeText={(price) => setPrice(price)}
+            placeholder="To Do Title"
             underlineColorAndroid='transparent' />
         </View>
 
         <View style={styles.containerButton}>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => dispatchActionAddBook()}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => { props.onSubmittedToDo(title), onToggleModal() }}>
             <Icon style={{marginEnd: 8}} name='check' size={25} color='#FFF' />
             <Text style={{color: "#FFF"}}>Confirm</Text>
           </TouchableOpacity>
