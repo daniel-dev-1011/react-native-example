@@ -1,0 +1,10 @@
+{
+  "login": "ANMELDEN",
+  "email": "E-Mail-Adresse",
+  "password": "Passwort",
+  "field_must_not_empty": "Dieses Feld darf nicht leer sein.",
+  "email_not_valid": "Diese E-Mail ist nicht gültig.",
+  "length_more_than_6": "Dein Passwort muss aus mindestens 6 Zeichen bestehen.",
+  "lack_rule_password": "Dein Passwort muss mindestens einen Großbuchstabe, einen Kleinbuchstaben und eine Zahl enthalten.",
+  "no_internet": "Keine Internetverbindung. Bitte versuche es erneut."
+}

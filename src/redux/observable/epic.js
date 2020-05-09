@@ -21,7 +21,6 @@ const loginEpic = action$ => action$.pipe( //action with dollar sign is identify
     ofType(LOGIN),
     mergeMap(action => getDataLoginFromAPI(action.payload)),
     map(response => {
-        console.log('response: ', response.data)
         if (typeof response.data !== 'undefined') {
             return loginSucces(response.data.user.full_name, response.data.user.avatar.thumb_url, false, response.data.user)
         } else {

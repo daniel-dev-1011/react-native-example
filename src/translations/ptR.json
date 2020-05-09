@@ -1,0 +1,10 @@
+{
+  "login": "Entrar",
+  "email": "Endereço de e-mail",
+  "password": "Senha",
+  "field_must_not_empty": "Este campo não pode estar vazio.",
+  "email_not_valid": "Este email não é válido.",
+  "length_more_than_6": "Sua senha deve ter pelo menos 6 caracteres.",
+  "lack_rule_password": "Sua senha deve conter pelo menos um caractere maiúsculo, um caractere minúsculo e um número.",
+  "no_internet": "Nenhuma conexão com a internet. Por favor, tente novamente."
+}

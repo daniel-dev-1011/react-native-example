@@ -1,0 +1,10 @@
+{
+  "login": "Iniciar sesión",
+  "email": "Dirección de correo electrónico",
+  "password": "Contraseña",
+  "field_must_not_empty": "Este campo no debe estar vacío.",
+  "email_not_valid": "Este correo electrónico no es válido.",
+  "length_more_than_6": "Su contraseña debe tener al menos 6 caracteres.",
+  "lack_rule_password": "Su contraseña debe contener al menos 1 carácter en mayúscula, 1 carácter en minúscula y 1 número.",
+  "no_internet": "Sin conexión a Internet. Inténtalo de nuevo."
+}

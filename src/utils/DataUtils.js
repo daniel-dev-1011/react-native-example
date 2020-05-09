@@ -43,17 +43,14 @@ export const getCurrentLang = async () => {
     } catch (error) {
         console.log(error)
     }
-    return 'en'
 }
 
 export const saveCurrentLang = async (currentLang) => {
     try {
-        const lang = await AsyncStorage.setItem('currentLang', JSON.stringify(currentLang))
-        return lang;
+        await AsyncStorage.setItem('currentLang', JSON.stringify(currentLang))
     } catch (error) {
         console.log(error)
     }
-    return 'en'
 }
 
 export const getImageResource = (nation) => {

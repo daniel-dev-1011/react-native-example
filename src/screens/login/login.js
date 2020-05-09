@@ -1,26 +1,19 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
 import React, { Component } from 'react';
-import {StyleSheet, View, Image, Text, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, I18nManager} from 'react-native';
-import {saveUserInfo, getUserInfo, getImageResource} from '../../utils/DataUtils';
-import LoginForm from './loginForm';
-import {isNetworkConnection} from '../../utils/StateUtils';
+import {StyleSheet, View, Image, Text, TouchableWithoutFeedback} from 'react-native';
+import {saveUserInfo, getUserInfo, getImageResource, getCurrentLang, getLocalize} from '../../utils/DataUtils';
 import Modal from 'react-native-modal';
 import * as Progress from 'react-native-progress';
-import { login, loginSucces, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL } from '../../redux/action/index';
+import { login, loginSucces, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, changeLanguage } from '../../redux/action/index';
 import { connect } from 'react-redux';
-import { convertErrorCode } from '../../utils/ErrorUtils';
 import SplashScreen from 'react-native-splash-screen';
 import { StackActions } from '@react-navigation/native';
 import MyStatusBar from '../../components/MyStatusBar';
 import MyModal from '../../components/MyModal';
 import LinearGradient from "react-native-linear-gradient";
 import MyLanguageOptions from '../../components/MyLanguageOptions';
-//Using for Multi-Language
-import {setI18nConfig, translate, setI18nConfigure} from '../../translations/translationConfig';
-import * as RNLocalize from "react-native-localize";
-import i18n from 'i18n-js';
-import {getLocalize} from '../../utils/DataUtils';
+import LoginFormViewController from './ViewController/loginFormViewController';
 
 class Login extends Component {
   constructor(props) {
@@ -33,7 +26,19 @@ class Login extends Component {
       currentLang: 'ENGLISH',
       currentLanguage: 'en',
     };
+    this.checkCurrentLang()
     this.checkIfUserIsExist()
+  }
+
+  checkCurrentLang = async () => {
+    let lang = await getCurrentLang()
+    if (typeof lang !== 'undefined') {
+      this.setState({
+        currentLang: lang,
+        currentLanguage: getLocalize(lang)
+      })
+      this.props.changeLanguage(this.state.currentLanguage)
+    }
   }
 
   checkIfUserIsExist = async () => {
@@ -67,12 +72,7 @@ class Login extends Component {
   }
 
   _startLoginSession = async (username, password) => {
-    const connection = await isNetworkConnection()
-    if (connection.isConnected) {
-      this.props.login(username, password, true)
-    } else {
-      alert(convertErrorCode('0000')) // 0000 is 'no internet connection' code
-    }
+    this.props.login(username, password, true)
   }
 
   render() {
@@ -88,8 +88,6 @@ class Login extends Component {
           "#FCFFFF",
           "#CEFFFB"
         ]}>
-        <KeyboardAvoidingView
-        behavior={Platform.Os == "ios" ? "padding" : "height"} >
         <View>
           <MyStatusBar backgroundColor='#FFF' barStyle='dark-content'/>
           <View style={styles.logoContainer}>
@@ -99,8 +97,8 @@ class Login extends Component {
             <Text style={styles.title}>Welcome to My First React Native App</Text>
           </View>
           <View style={styles.formContainer}>
-            <LoginForm
-            showOrHideError = {(username) => this._validateEmail(username)}
+            
+            <LoginFormViewController
             onSubmitted = {(username, password) => { this._startLoginSession(username, password)}}/>
 
             <View style={styles.containerSignUp}>
@@ -110,17 +108,17 @@ class Login extends Component {
               onPress={() => this.props.navigation.navigate('Sign Up')}>Sign Up Now.</Text>
             </View>
 
-            <MyLanguageOptions 
-            shouldShow={this.state.shouldShow} 
-            currentLang={this.state.currentLang}
-            setLang={(newLang) => { 
-              this.setState({shouldShow: !this.state.shouldShow}), 
-              this.setState({currentLang: newLang})
-            }}/>
+            {this.state.shouldShow && <MyLanguageOptions 
+              currentLang={this.state.currentLang}
+              setLang={(newLang) => { 
+                this.setState({shouldShow: !this.state.shouldShow}), 
+                this.setState({currentLang: newLang})
+              }}/>
+            }
 
             <TouchableWithoutFeedback onPress={() => this.setState({shouldShow: !this.state.shouldShow})}>
               <View style={styles.containerLang}>
-              <Text style={{flex: 1, textAlign: 'center', color: '#777', fontSize: 14, marginEnd: -24}}>{this.state.currentLang}</Text>
+              <Text style={styles.textLang}>{this.state.currentLang}</Text>
                 <Image style={styles.image} source={getImageResource(this.state.currentLang)}/>
               </View>
             </TouchableWithoutFeedback>
@@ -129,7 +127,6 @@ class Login extends Component {
         </View>
         {this.showModal(this.props.isLoading)}
         <MyModal visible={typeof this.props.errorCode !== 'undefined'} errorCode={(this.props.errorCode)}/>
-      </KeyboardAvoidingView>
       </LinearGradient>
     );
     } else return null;
@@ -144,11 +141,6 @@ _navigateToMainScreen = () => {
     StackActions.replace('Drawer')
   );
 }
-
-_validateEmail = email => {
-  var pattern = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
-  return pattern.test(email);
-};
 
 showModal = (isVisible) => {
   return(
@@ -198,6 +190,7 @@ const mapDispatchToProps = dispatch => {
   return {
     login: (email, password, isLoading) => dispatch(login(email, password, isLoading)),
     loginSucces: (name, imageUrl, isLoading, user) => dispatch(loginSucces(name, imageUrl, isLoading, user)),
+    changeLanguage: (newLang) => dispatch(changeLanguage(newLang)),
   }
 }
 
@@ -270,5 +263,13 @@ const styles = StyleSheet.create({
     height: 24,
     resizeMode: 'contain',
     alignSelf: 'center',
+  },
+  textLang: {
+    flex: 1, 
+    textAlign: 'center', 
+    color: '#777', 
+    fontSize: 14, 
+    marginEnd: -24,
+    textTransform: 'uppercase'
   },
 })

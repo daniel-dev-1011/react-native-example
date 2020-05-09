@@ -1,0 +1,10 @@
+{
+  "login": "LOGIN",
+  "email": "Email Address",
+  "password": "Password",
+  "field_must_not_empty": "This field must not be empty.",
+  "email_not_valid": "This email is not valid.",
+  "length_more_than_6": "Your password must be at least 6 characters.",
+  "lack_rule_password": "Your password must contain at least 1 uppercase character, 1 lower character, and 1 number.",
+  "no_internet": "No internet connection. Please try again."
+}

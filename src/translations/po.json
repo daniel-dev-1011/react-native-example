@@ -1,0 +1,10 @@
+{
+  "login": "Zaloguj",
+  "email": "Adres e-mail",
+  "password": "Hasło",
+  "field_must_not_empty": "To pole nie może być puste.",
+  "email_not_valid": "Adres e-mail jest nieprawidłowy.",
+  "length_more_than_6": "Twoje hasło musi mieć co najmniej 8 znaków.",
+  "lack_rule_password": "Twoje hasło musi zawierać co najmniej 1 wielką literę, 1 małą literę i 1 cyfrę.",
+  "no_internet": "Brak połączenia z Internetem. Spróbuj ponownie."
+}
