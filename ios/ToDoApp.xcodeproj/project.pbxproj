@@ -42,6 +42,7 @@
 		B32CAFB0EC0B4430A4486980 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2501DE0547494AA5628297 /* FontAwesome.ttf */; };
 		D515817327964EF09D610E76 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A60C8E1EFE747B8AB6CAAC3 /* MaterialIcons.ttf */; };
 		F5BFF4870226439CBBF4A753 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6FF95ABC6B3486E83E190F3 /* FontAwesome5_Regular.ttf */; };
+		E70F644A9A2E4FEDB5F16F9A /* DancingScript-Regular_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CE305217F254EBEB6D6E2B4 /* DancingScript-Regular_Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		6378D9F62BD1270FC7657D58 /* libPods-ToDoApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToDoApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6494BB73C58C3AAFE422DE6F /* Pods-ToDoApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ToDoApp-tvOSTests/Pods-ToDoApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6F9C40ABD87922E5CDE1057F /* Pods-ToDoApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ToDoApp-tvOS/Pods-ToDoApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		74A45A72EA084F9C92846594 /* DancingScript-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DancingScript-VariableFont_wght.ttf"; path = "../assets/fonts/DancingScript-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		7D7ABBF7519F4953A83ACDFF /* vincHand.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = vincHand.ttf; path = ../assets/fonts/vincHand.ttf; sourceTree = "<group>"; };
 		8CEF4070215E45FF92A685CF /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		8E6070F7228142DEA66635FD /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 		E6501492A4193878831ADED8 /* Pods-ToDoApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ToDoApp-tvOS/Pods-ToDoApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		7CE305217F254EBEB6D6E2B4 /* DancingScript-Regular_Bold.ttf */ = {isa = PBXFileReference; name = "DancingScript-Regular_Bold.ttf"; path = "../assets/fonts/DancingScript-Regular_Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +282,8 @@
 				7D7ABBF7519F4953A83ACDFF /* vincHand.ttf */,
 				05FE21F3D72C4A71BA1F9539 /* Lobster_1.3.otf */,
 				124DE7C1D8D84060A1D497FC /* DancingScriptOT.otf */,
+				74A45A72EA084F9C92846594 /* DancingScript-VariableFont_wght.ttf */,
+				7CE305217F254EBEB6D6E2B4 /* DancingScript-Regular_Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -448,6 +453,7 @@
 				43E5C576C54E48D18FA386B7 /* Zocial.ttf in Resources */,
 				09A3E0450E9B4FF09769F048 /* DancingScriptOT.otf in Resources */,
 				A85FFA962462AEE200FC438C /* GoogleService-Info.plist in Resources */,
+				E70F644A9A2E4FEDB5F16F9A /* DancingScript-Regular_Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

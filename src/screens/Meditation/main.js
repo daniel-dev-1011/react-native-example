@@ -7,10 +7,10 @@ import MySearchBar from '../../components/MySearchBar';
 import MyListCardMeditation from '../../components/MyListCardMeditation';
 const W = Dimensions.get('window').width;
 
-function Meditation() {
+function Meditation(props) {
   return(
     <View style={styles.container}> 
-      <Background />
+      <Background onBackPressed={() => props.navigation.pop()}/>
       <MySearchBar style={styles.containerSearch}/>
       <MyListCardMeditation />
     </View>

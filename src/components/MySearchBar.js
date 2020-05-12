@@ -9,10 +9,10 @@ const mySearchBar = ({style}) => {
     <View style={[styles.containerSearch, style]}>
       <Icon name='search' size={24} color='#777' />
       <TextInput 
-      style={styles.inputs}
-      underlineColorAndroid='transparent'
-      placeholder='Search'
-      selectionColor='#777' />
+        style={styles.inputs}
+        underlineColorAndroid='transparent'
+        placeholder='Search'
+        selectionColor='#777' />
     </View>
   )
 }

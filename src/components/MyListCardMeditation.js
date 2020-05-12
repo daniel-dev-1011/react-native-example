@@ -51,8 +51,8 @@ function MyListCardMeditation(style) {
             </TouchableWithoutFeedback>
           )})}
         </View>
-        <Text style={styles.text}>Trainning Courses</Text>
-        <View style={styles.lessons}>
+        <Text style={styles.text}>Training Courses</Text>
+        <View style={[styles.lessons, styles.cardShadow]}>
           <Image style={styles.profile} source={require('../images/meditation-course.png')}/>
           <View style={{flexDirection: 'column', justifyContent: 'space-evenly', flex: 1}}>
             <Text style={{fontWeight: 'bold', fontSize: 14, letterSpacing: 0.13}}>Basics 1</Text>
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingBottom: 16,
   },
   scrollView: {
     flex: 1,
@@ -127,6 +126,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 8,
     height: 89,
+    marginBottom: 8,
   },
   profile: {
     resizeMode: 'contain',
