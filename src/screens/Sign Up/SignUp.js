@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     },
     inputs:{
         height:45,
-        marginLeft:16,
+        marginLeft: 16,
         borderBottomColor: '#FFFFFF',
         fontSize: 16,
         flex:1,

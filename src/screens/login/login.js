@@ -105,7 +105,7 @@ class Login extends Component {
               <Text style={styles.signUp}>Not a member ?  </Text>
               <Text
               style={styles.forgotPassword}
-              onPress={() => this.props.navigation.navigate('Sign Up')}>Sign Up Now.</Text>
+              onPress={() => this.props.navigation.navigate('My Exercise')}>Sign Up Now.</Text>
             </View>
 
             {this.state.shouldShow && <MyLanguageOptions 

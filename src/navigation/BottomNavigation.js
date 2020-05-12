@@ -22,7 +22,7 @@ function MyTabs() {
             return <Icon
               name={iconName} 
               size={size = focused ? 28 : 22} 
-              color={color} />;
+              color={color} />
           },
       }} />
       <Tab.Screen name="Schedule" component={Schedule} options={{

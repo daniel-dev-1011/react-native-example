@@ -30,6 +30,31 @@ const DATA = [
     description: 'bbbbbbbbbbbbbbbbbbbb',
     thumbUrl: 'https://s3.eu-central-1.amazonaws.com/storage.propmap.io/staging/uploads/user/avatar/14/image-22.jpg',
   },
+  {
+    title: 'Cristiano Ronaldo',
+    description: 'bbbbbbbbbbbbbbbbbbbb',
+    thumbUrl: 'https://s3.eu-central-1.amazonaws.com/storage.propmap.io/staging/uploads/user/avatar/14/image-22.jpg',
+  },
+  {
+    title: 'Cristiano Ronaldo',
+    description: 'bbbbbbbbbbbbbbbbbbbb',
+    thumbUrl: 'https://s3.eu-central-1.amazonaws.com/storage.propmap.io/staging/uploads/user/avatar/14/image-22.jpg',
+  },
+  {
+    title: 'Cristiano Ronaldo',
+    description: 'bbbbbbbbbbbbbbbbbbbb',
+    thumbUrl: 'https://s3.eu-central-1.amazonaws.com/storage.propmap.io/staging/uploads/user/avatar/14/image-22.jpg',
+  },
+  {
+    title: 'Cristiano Ronaldo',
+    description: 'bbbbbbbbbbbbbbbbbbbb',
+    thumbUrl: 'https://s3.eu-central-1.amazonaws.com/storage.propmap.io/staging/uploads/user/avatar/14/image-22.jpg',
+  },
+  {
+    title: 'Cristiano Ronaldo',
+    description: 'bbbbbbbbbbbbbbbbbbbb',
+    thumbUrl: 'https://s3.eu-central-1.amazonaws.com/storage.propmap.io/staging/uploads/user/avatar/14/image-22.jpg',
+  },
 ];
 
 function ListView() {

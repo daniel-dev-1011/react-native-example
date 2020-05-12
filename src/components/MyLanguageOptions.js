@@ -3,7 +3,6 @@
 
 import React from 'react';
 import {StyleSheet, View, Image, Text, FlatList, TouchableOpacity} from 'react-native';
-import {getImageResource} from '../utils/DataUtils';
 import {lang} from '../utils/Constants';
 import {connect} from 'react-redux';
 import {changeLanguage} from '../redux/action/index';
@@ -11,17 +10,16 @@ import {getLocalize} from '../utils/DataUtils';
 import {saveCurrentLang} from '../utils/DataUtils';
 
 const itemRow = (item, props) => {
-  const resource = getImageResource(item);
-  if (item !== props.currentLang) {
+  if (item.name !== props.currentLang) {
     return (
       <TouchableOpacity onPress={() => { 
-          props.setLang(item), 
-          props.changeLanguage(getLocalize(item)),
-          saveCurrentLang(item) 
+          props.setLang(item.name), 
+          props.changeLanguage(getLocalize(item.name)),
+          saveCurrentLang(item.name) 
         }}>
         <View style={styles.containerItem}>
-          <Text style={styles.text}>{item}</Text>
-          <Image style={styles.image} source={resource}/>
+          <Text style={styles.text}>{item.name}</Text>
+          <Image style={styles.image} source={item.url}/>
         </View>
       </TouchableOpacity>
     )
@@ -29,8 +27,8 @@ const itemRow = (item, props) => {
     return (
       <TouchableOpacity>
         <View style={styles.containerLastItem}>
-          <Text style={styles.text}>{item}</Text>
-          <Image style={styles.image} source={resource}/>
+          <Text style={styles.text}>{item.name}</Text>
+          <Image style={styles.image} source={item.url}/>
         </View>
       </TouchableOpacity>
     )
@@ -38,13 +36,12 @@ const itemRow = (item, props) => {
 }
 
 const moveCurrentLangToLast = (currentLang) => {
-  var index = lang.findIndex(item => item === currentLang);
+  var index = lang.findIndex(item => item.name === currentLang);
   lang.push(lang.splice(index, 1)[0]);
 }
 
 function MyLangguageOptions(props) {
   moveCurrentLangToLast(props.currentLang)
-
   return (
     <View style={styles.container}>
       <FlatList

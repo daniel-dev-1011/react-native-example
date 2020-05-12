@@ -11,6 +11,13 @@
         <item name="android:windowLightStatusBar">false</item>
         <!-- Add the following line to set the default background color for all the app. -->
         <item name="android:windowBackground">@color/app_bg</item>
+
+        <!-- sets cursor color -->
+        <item name="colorControlActivated">@color/color_cursor</item>
+        
+         <!-- sets underline color -->
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorControlNormal">#FFFFFF</item>
     </style>
 
     <!-- Adds the splash screen definition -->

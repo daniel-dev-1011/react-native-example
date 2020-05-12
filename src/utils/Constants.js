@@ -17,6 +17,31 @@ export const ADD_BOOK = '/books';
 
 export const DELETE_BOOK = '/books/';
 
-export const lang = ["ESPAÑOL", "PORTUGUÊS (BR)", "POLSKI", "Български", "DEUTSCH", "ENGLISH"]
-
 export const localize = ["es", "ptR", "po", "bl", "de", "en"]
+
+export const lang = [
+  {
+    name: 'ESPAÑOL',
+    url: require("../images/spain.png")
+  },
+  {
+    name: 'PORTUGUÊS (BR)',
+    url: require("../images/brazil.png")
+  },
+  {
+    name: 'POLSKI',
+    url: require("../images/polski.png")
+  },
+  {
+    name: 'Български',
+    url: require("../images/bulgaria.png")
+  },
+  {
+    name: 'DEUTSCH',
+    url: require("../images/deutch.png")
+  },
+  {
+    name: 'ENGLISH',
+    url: require("../images/united-kingdom.png")
+  },
+]

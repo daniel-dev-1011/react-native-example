@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../screens/login/login';
 import SignUp from '../screens/Sign Up/SignUp';
 import DrawerNavigation from './DrawerNavigation';
+import MyExerciseTabNavigator from './MyWorkoutBottomTab'
 
 const Stack = createStackNavigator()
 
@@ -26,9 +27,14 @@ function MainStackNavigator() {
             options={{ title: 'Home Screen'}}  
         />
         <Stack.Screen
-          name='Sign Up'
-          component={SignUp}
-          options={{ title: 'Sign Up Screen' }}
+            name='Sign Up'
+            component={SignUp}
+            options={{ title: 'Sign Up Screen'}}  
+        />
+        <Stack.Screen
+          name='My Exercise'
+          component={MyExerciseTabNavigator}
+          options={{ title: 'My Exercise Screen' }}
         />
         <Stack.Screen
           name='Drawer'
