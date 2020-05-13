@@ -5,13 +5,14 @@ import * as React from 'react';
 import {StyleSheet, Image} from 'react-native';
 import Schedule from '../screens/schedule/schedule';
 import WorkOutMainStack from '../navigation/WorkOutMainStack';
+import MyCustomCalendar from '../components/MyCustomCalendar';
 
 const Tab = createMaterialBottomTabNavigator();
 
 function MyTabs() {
   return (
     <Tab.Navigator initialRouteName='All Exercises' inactiveColor='#4A4E64' activeColor='#E68342' barStyle={styles.container}>
-      <Tab.Screen name="Today" component={Schedule} options={{
+      <Tab.Screen name="Today" component={MyCustomCalendar} options={{
         tabBarIcon: ({ focused, color }) => {
           tintColor = focused ? '#E68342' : color
           return (
