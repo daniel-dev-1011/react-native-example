@@ -14,11 +14,11 @@ export default function HeaderCalendar(props) {
         onPress={() => { 
         if (month.month !== 1) {
           props.setPreviousMonth(month.month)
-          props.setPreviousData(month.month - 1, year)
         } else {
           props.setYear(year - 1)
           props.setPreviousMonth(13)
-        }}}>
+        }
+        props.setPreviousData(month.month - 1, year)}}>
         <Icon name='chevron-left' size={22} />
         <Text style={styles.textHeading}>Previous</Text>
       </TouchableOpacity>
@@ -29,11 +29,11 @@ export default function HeaderCalendar(props) {
         onPress={() => { 
         if (month.month !== 12) {
           props.setNextMonth(month.month)
-          props.setNextData(month.month + 1, year)
         } else {
           props.setYear(year + 1)
           props.setNextMonth(0)
-        }}}>
+        }
+        props.setNextData(month.month + 1, year)}}>
         <Text style={styles.textHeading}>Next</Text>
         <Icon name='chevron-right' size={22} />
       </TouchableOpacity>
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 16,
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   titleChangeMonth: {
     flexDirection: 'row', 
@@ -54,8 +53,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textMonth: {
+    flex: 1,
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   textHeading: {
     fontWeight: 'bold',

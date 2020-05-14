@@ -25,9 +25,16 @@ const getFirstDay = (month, year) => {
   return firstDay === 0 ? 7 : firstDay
 }
 
+const getLastDay = (month, year) => {
+  return new Date(year, month, 0).getDay()
+}
+
+const getLastDayofLastMonth = (month, year) => {
+  return new Date(year, month - 1, 0).getDate()
+}
+
 const getNameFromMonth = (number) => {
-  const temp = months.find(item => item.month === (number + 1))
-  return temp;
+  return months.find(item => item.month === (number + 1))
 }
 
 const getPreviousMonth = number => {
@@ -61,16 +68,6 @@ const checkIfCurrentDate = (date, month, year) => {
   )
 }
 
-const paddingStart = (number) => {
-  if (number <= 2) {
-    return 3
-  } else if (2 < number <= 4) {
-    return 8
-  } else {
-    return 6
-  }
-}
-
 const checkIfChosenOrNot = (item, chosenDates) => {
   var index = chosenDates.findIndex(x => (x.index === item.index && x.month === item.month && x.year === item.year));
   return typeof chosenDates[index] !== 'undefined' ? chosenDates[index].index : undefined
@@ -85,9 +82,11 @@ function MyCustomCalendar() {
   const [month, setMonth] = useState(getNameFromMonth(getCurrentMonth()))
   const [year, setYear] = useState(getCurrentYear())
   const [data, setData] = useState(getDatesInMonth(month.month, year))
+  const [firstRender, setFirstRender] = useState(true)
   const [chosenDate, setChosenDate] = useState([])
   const firstDay = getFirstDay(month.month, year) - 1;
-  const marginStart = (firstDay) * (W_Date) + paddingStart(firstDay)
+  const lastDay = getLastDay(month.month, year);
+  const lastDayofLastMonth = getLastDayofLastMonth(month.month, year);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -95,22 +94,26 @@ function MyCustomCalendar() {
         <HeaderCalendar 
         month={month}
         year={year}
-        setYear={(year) => setYear(year)}
+        setYear={(year) => { setYear(year), setFirstRender(true) }}
         setPreviousData={(month, year) => setData(getDatesInMonth(month, year))}
         setNextData={(month, year) => setData(getDatesInMonth(month, year))}
-        setNextMonth={(month) => setMonth(getNextMonth(month))}
-        setPreviousMonth={(month) => setMonth(getPreviousMonth((month)))}/>
+        setNextMonth={(month) => { setMonth(getNextMonth(month)), setFirstRender(true) } }
+        setPreviousMonth={(month) => { setMonth(getPreviousMonth((month))), setFirstRender(true) }}/>
 
         <TitleDays dateTitle={styles.dateTitle}/>
 
         <DateOfMonth 
+        firstRender={firstRender}
         data={data}
         chosenDate={chosenDate}
-        marginStart={marginStart}
+        firstDay={firstDay}
+        lastDay={lastDay}
+        lastDayofLastMonth={lastDayofLastMonth}
         month={month}
         year={year}
         date={styles.date}
         containerBody={styles.containerBody}
+        setFirstRender={() => setFirstRender(!firstRender)}
         checkIndex={(item, chosenDate) => checkIndex(item, chosenDate)}
         setChosenDate={(chosenDate) => setChosenDate(chosenDate)}
         checkIfCurrentDate={(date, month, year) => checkIfCurrentDate(date, month, year)}
@@ -143,6 +146,7 @@ const styles = StyleSheet.create({
   date: {
     width: W_Date, 
     height: 30, 
+    marginEnd: 1,
     marginBottom: 30,
     justifyContent: "center"
   },
