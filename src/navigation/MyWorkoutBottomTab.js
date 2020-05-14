@@ -5,7 +5,7 @@ import * as React from 'react';
 import {StyleSheet, Image} from 'react-native';
 import Schedule from '../screens/schedule/schedule';
 import WorkOutMainStack from '../navigation/WorkOutMainStack';
-import MyCustomCalendar from '../components/MyCustomCalendar';
+import MyCustomCalendar from '../components/MyCustomCalendar/MyCustomCalendar';
 
 const Tab = createMaterialBottomTabNavigator();
 
