@@ -7,9 +7,9 @@ import {date} from '../../utils/Constants';
 export default function TitleDays(props) {
   return (
     <View style={styles.containerDate}>
-    {date.map((item) => {
+    {date.map((item, i) => {
       return (
-        <Text style={props.dateTitle}>{item}</Text>
+        <Text style={props.dateTitle} key={i}>{item}</Text>
       )
     })}
   </View>

@@ -2,6 +2,7 @@
 /* eslint-disable */
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import ViewPager from '@react-native-community/viewpager';
 
 export default function DateOfMonth(props) {
   const data = props.data
@@ -13,7 +14,8 @@ export default function DateOfMonth(props) {
   const chosenDate = props.chosenDate
   const firstRender = props.firstRender
   const [, updateState] = useState();
-  const forceUpdate = () => { updateState({}) };
+  const forceUpdate = () => { updateState({}) }
+
   const updateIsChosen = (item) => {
     var date = props.checkIfChosenOrNot(item, chosenDate)
     if (date) {
@@ -37,15 +39,18 @@ export default function DateOfMonth(props) {
   }
 
   return (
-    <View style={props.containerBody}>
+    <ViewPager 
+    style={props.containerBody}>
+      <View style={props.containerBody}>
       {firstRender && addDaysOfPrevMonth()}
       {firstRender && addDaysOfNextMonth()}
-      {data.map((item) => {
+      {data.map((item, i) => {
         updateIsChosen(item)
         return (
           <TouchableOpacity style={[props.date,
             item.isChosen ? styles.chosenDate : null,
             props.checkIfCurrentDate(item.index, month.month, year) ? styles.currentDate : null]} 
+            key={i}
             onPress={() => { 
               if (!item.lastMonth) {
                 if (!item.isChosen) {
@@ -62,7 +67,8 @@ export default function DateOfMonth(props) {
             <Text style={{color: item.lastMonth ? '#BBB' : '#000', textAlign: 'center'}}>{item.index}</Text>
           </TouchableOpacity>
         )})}
-    </View>
+      </View>
+    </ViewPager>
   )
 }
 

@@ -1,6 +1,6 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
-import React, {useState} from 'react';
+import React, {useState, useReducer} from 'react';
 import { View, StyleSheet, SafeAreaView, Dimensions} from 'react-native';
 import {months} from '../../utils/Constants';
 import DateOfMonth from './DateOfMonth';
@@ -78,12 +78,28 @@ const checkIndex = (item, chosenDates) => {
     x.month === item.month && x.year === item.year));
 }
 
+function reducer(state, action) {
+  switch (action.type) {
+    case 'setRender':
+      return {
+        firstRender: true
+      }
+    case 'shouldNotRender': {
+      return {
+        firstRender: false
+      }
+    }
+    default:
+      throw new Error();
+  }
+}
+
 function MyCustomCalendar() {
   const [month, setMonth] = useState(getNameFromMonth(getCurrentMonth()))
   const [year, setYear] = useState(getCurrentYear())
   const [data, setData] = useState(getDatesInMonth(month.month, year))
-  const [firstRender, setFirstRender] = useState(true)
   const [chosenDate, setChosenDate] = useState([])
+  const [state, dispatch] = useReducer(reducer, { firstRender: true })
   const firstDay = getFirstDay(month.month, year) - 1;
   const lastDay = getLastDay(month.month, year);
   const lastDayofLastMonth = getLastDayofLastMonth(month.month, year);
@@ -94,16 +110,17 @@ function MyCustomCalendar() {
         <HeaderCalendar 
         month={month}
         year={year}
-        setYear={(year) => { setYear(year), setFirstRender(true) }}
+        setYear={(year) => { setYear(year), dispatch({type: 'setRender'}) }}
         setPreviousData={(month, year) => setData(getDatesInMonth(month, year))}
         setNextData={(month, year) => setData(getDatesInMonth(month, year))}
-        setNextMonth={(month) => { setMonth(getNextMonth(month)), setFirstRender(true) } }
-        setPreviousMonth={(month) => { setMonth(getPreviousMonth((month))), setFirstRender(true) }}/>
+        setNextMonth={(month) => { setMonth(getNextMonth(month)), dispatch({type: 'setRender'}) } }
+        setPreviousMonth={(month) => { setMonth(getPreviousMonth((month))), dispatch({type: 'setRender'}) }}
+        />
 
         <TitleDays dateTitle={styles.dateTitle}/>
 
         <DateOfMonth 
-        firstRender={firstRender}
+        firstRender={state.firstRender}
         data={data}
         chosenDate={chosenDate}
         firstDay={firstDay}
@@ -113,7 +130,7 @@ function MyCustomCalendar() {
         year={year}
         date={styles.date}
         containerBody={styles.containerBody}
-        setFirstRender={() => setFirstRender(!firstRender)}
+        setFirstRender={() => dispatch({type: 'shouldNotRender'})}
         checkIndex={(item, chosenDate) => checkIndex(item, chosenDate)}
         setChosenDate={(chosenDate) => setChosenDate(chosenDate)}
         checkIfCurrentDate={(date, month, year) => checkIfCurrentDate(date, month, year)}
