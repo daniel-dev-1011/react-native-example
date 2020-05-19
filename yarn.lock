@@ -1148,6 +1148,13 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/progress-bar-android/-/progress-bar-android-1.0.2.tgz#70fac5bf8ad92f8d8025db0841d1371c78db1e84"
   integrity sha512-0RJK+y1CWMWios7evoQeYaX9SjaFafAWECAr6fmbaG0ISgsDTTQMswFT1O6+VITdm0GlS5F+q0vfCrPOkDispQ==
 
+"@react-native-community/push-notification-ios@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.2.0.tgz#3353598450a39c42d079603aad2d1c0f9c2c1729"
+  integrity sha512-B5qPb9P/6vvxGGQDePlK/q6NxoZPWSVFtKCQ9jlboP7gNZmf3AAyBhTzrb++s2NSXXogjkGi6vt9df1ipZiawQ==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-community/viewpager@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/viewpager/-/viewpager-4.0.0.tgz#bae6fc2d0689c85488a1f413ecf19e39b3b7e1d9"
@@ -2805,6 +2812,11 @@ eslint-plugin-prettier@3.1.2:
   integrity sha512-GlolCC9y3XZfv3RQfwGew7NnuFDKsfI4lbvRK+PIIo23SFH+LemGs4cKwzAaRa+Mdb+lQO/STaIayno8T5sJJA==
   dependencies:
     prettier-linter-helpers "^1.0.0"
+
+eslint-plugin-react-hooks@^0.0.0-33c3af284:
+  version "0.0.0-33c3af284"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-0.0.0-33c3af284.tgz#2790a07a35c06ee5adec987265726fdc1d4eb7bf"
+  integrity sha512-oa9DKhjhdzinn0Ohou4uiSpvta2frBA8g78OcLtTuV/PTAAXUg6QpJM0APlKctXaLW4njWSy4gtZVG3Agx9otQ==
 
 eslint-plugin-react-hooks@^3.0.0:
   version "3.0.0"
@@ -6001,6 +6013,13 @@ react-native-progress@^4.1.2:
   dependencies:
     "@react-native-community/art" "^1.1.2"
     prop-types "^15.7.2"
+
+react-native-push-notification@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.4.0.tgz#7d8f857f9905a646c398a3eb0fa6402965e2c78c"
+  integrity sha512-J5VzpmQT9uIbXGpt5SjKqIhuOrcsTCYKPgRPzQ9j0Gz1SuphuhtTfQr7D8+UNPxqYbzQOJ1DytfcF3far4dHRw==
+  dependencies:
+    "@react-native-community/push-notification-ios" "^1.2.0"
 
 react-native-ratings@^6.3.0:
   version "6.5.0"

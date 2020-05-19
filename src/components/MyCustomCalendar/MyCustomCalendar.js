@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
-import React, {useState, useReducer} from 'react';
-import { View, StyleSheet, SafeAreaView, Dimensions} from 'react-native';
+import React, {useState} from 'react';
+import { View, StyleSheet, Dimensions} from 'react-native';
 import {months} from '../../utils/Constants';
 import DateOfMonth from './DateOfMonth';
 import HeaderCalendar from './HeaderCalendar';
@@ -13,7 +13,7 @@ const H = Dimensions.get('window').height
 var d = new Date()
 
 const getDatesInMonth = (month, year) => {
-  const days = []
+  let days = []
   for (let index = 1; index <= new Date(year, month, 0).getDate(); index++) {
     days.push({index, month, year, isChosen: false})
   }
@@ -78,67 +78,57 @@ const checkIndex = (item, chosenDates) => {
     x.month === item.month && x.year === item.year));
 }
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'setRender':
-      return {
-        firstRender: true
-      }
-    case 'shouldNotRender': {
-      return {
-        firstRender: false
-      }
-    }
-    default:
-      throw new Error();
-  }
-}
-
 function MyCustomCalendar() {
   const [month, setMonth] = useState(getNameFromMonth(getCurrentMonth()))
   const [year, setYear] = useState(getCurrentYear())
   const [data, setData] = useState(getDatesInMonth(month.month, year))
   const [chosenDate, setChosenDate] = useState([])
-  const [state, dispatch] = useReducer(reducer, { firstRender: true })
+  const [firstRender, setFirstRender] = useState(true)
   const firstDay = getFirstDay(month.month, year) - 1;
   const lastDay = getLastDay(month.month, year);
   const lastDayofLastMonth = getLastDayofLastMonth(month.month, year);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
-        <HeaderCalendar 
-        month={month}
-        year={year}
-        setYear={(year) => { setYear(year), dispatch({type: 'setRender'}) }}
-        setPreviousData={(month, year) => setData(getDatesInMonth(month, year))}
-        setNextData={(month, year) => setData(getDatesInMonth(month, year))}
-        setNextMonth={(month) => { setMonth(getNextMonth(month)), dispatch({type: 'setRender'}) } }
-        setPreviousMonth={(month) => { setMonth(getPreviousMonth((month))), dispatch({type: 'setRender'}) }}
-        />
+    <View style={styles.container}>
+      <HeaderCalendar 
+      month={month}
+      year={year}
+      setYear={(year) => { setYear(year), setFirstRender(true) }}
+      setPreviousData={(month, year) => setData(getDatesInMonth(month, year))}
+      setNextData={(month, year) => setData(getDatesInMonth(month, year))}
+      setNextMonth={(month) => { setMonth(getNextMonth(month)), setFirstRender(true) } }
+      setPreviousMonth={(month) => { setMonth(getPreviousMonth((month))), setFirstRender(true) }}
+      />
 
-        <TitleDays dateTitle={styles.dateTitle}/>
+      <TitleDays dateTitle={styles.dateTitle}/>
 
-        <DateOfMonth 
-        firstRender={state.firstRender}
-        data={data}
-        chosenDate={chosenDate}
-        firstDay={firstDay}
-        lastDay={lastDay}
-        lastDayofLastMonth={lastDayofLastMonth}
-        month={month}
-        year={year}
-        date={styles.date}
-        containerBody={styles.containerBody}
-        setFirstRender={() => dispatch({type: 'shouldNotRender'})}
-        checkIndex={(item, chosenDate) => checkIndex(item, chosenDate)}
-        setChosenDate={(chosenDate) => setChosenDate(chosenDate)}
-        checkIfCurrentDate={(date, month, year) => checkIfCurrentDate(date, month, year)}
-        checkIfChosenOrNot={(item, chosenDate) => checkIfChosenOrNot(item, chosenDate)}
-        />
+      <DateOfMonth 
+      firstRender={firstRender}
+      data={data}
+      chosenDate={chosenDate}
+      firstDay={firstDay}
+      lastDay={lastDay}
+      lastDayofLastMonth={lastDayofLastMonth}
+      month={month}
+      year={year}
+      date={styles.date}
+      containerBody={styles.containerBody}
 
-      </View>
-    </SafeAreaView>
+      setNextMonth={(month) => { setMonth(getNextMonth(month)), setFirstRender(true) } }
+      setNextData={(month, year) => setData(getDatesInMonth(month, year))}
+      setPreviousMonth={(month) => { setMonth(getPreviousMonth((month))), setFirstRender(true) }}
+      setPreviousData={(month, year) => setData(getDatesInMonth(month, year))}
+      setYear={(year) => { setYear(year), setFirstRender(true) }}
+      
+      
+      setFirstRender={() => setFirstRender(false)}
+      checkIndex={(item, chosenDate) => checkIndex(item, chosenDate)}
+      setChosenDate={(chosenDate) => setChosenDate(chosenDate)}
+      checkIfCurrentDate={(date, month, year) => checkIfCurrentDate(date, month, year)}
+      checkIfChosenOrNot={(item, chosenDate) => checkIfChosenOrNot(item, chosenDate)}
+      />
+
+    </View>
   )
 }
 

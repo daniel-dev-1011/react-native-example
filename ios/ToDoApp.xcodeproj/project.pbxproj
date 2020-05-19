@@ -41,8 +41,8 @@
 		B064160BFAF543A5811B8C99 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5DA52470B4A4CAC9DC98406 /* FontAwesome5_Brands.ttf */; };
 		B32CAFB0EC0B4430A4486980 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2501DE0547494AA5628297 /* FontAwesome.ttf */; };
 		D515817327964EF09D610E76 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A60C8E1EFE747B8AB6CAAC3 /* MaterialIcons.ttf */; };
-		F5BFF4870226439CBBF4A753 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6FF95ABC6B3486E83E190F3 /* FontAwesome5_Regular.ttf */; };
 		E70F644A9A2E4FEDB5F16F9A /* DancingScript-Regular_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CE305217F254EBEB6D6E2B4 /* DancingScript-Regular_Bold.ttf */; };
+		F5BFF4870226439CBBF4A753 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6FF95ABC6B3486E83E190F3 /* FontAwesome5_Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +93,7 @@
 		6494BB73C58C3AAFE422DE6F /* Pods-ToDoApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ToDoApp-tvOSTests/Pods-ToDoApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6F9C40ABD87922E5CDE1057F /* Pods-ToDoApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ToDoApp-tvOS/Pods-ToDoApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		74A45A72EA084F9C92846594 /* DancingScript-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DancingScript-VariableFont_wght.ttf"; path = "../assets/fonts/DancingScript-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		7CE305217F254EBEB6D6E2B4 /* DancingScript-Regular_Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DancingScript-Regular_Bold.ttf"; path = "../assets/fonts/DancingScript-Regular_Bold.ttf"; sourceTree = "<group>"; };
 		7D7ABBF7519F4953A83ACDFF /* vincHand.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = vincHand.ttf; path = ../assets/fonts/vincHand.ttf; sourceTree = "<group>"; };
 		8CEF4070215E45FF92A685CF /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		8E6070F7228142DEA66635FD /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 		A85FFA952462AEE200FC438C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A89B19D624548C2B00508095 /* DancingScript-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DancingScript-Regular.otf"; path = "../../Fonts/DancingScript-Regular.otf"; sourceTree = "<group>"; };
 		A89DB6D4AA17452D812A9F36 /* VINCHAND.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = VINCHAND.ttf; path = ../assets/fonts/VINCHAND.ttf; sourceTree = "<group>"; };
+		A8A98E05247244EA0058DA7F /* ToDoApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ToDoApp.entitlements; path = ToDoApp/ToDoApp.entitlements; sourceTree = "<group>"; };
 		A8DCB4A4245F0F1D00E0EE74 /* libreact-native-image-picker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-image-picker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2501DE0547494AA5628297 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		B28C88BF388C46F8BE1420B6 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -115,7 +117,6 @@
 		E6501492A4193878831ADED8 /* Pods-ToDoApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ToDoApp-tvOS/Pods-ToDoApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		7CE305217F254EBEB6D6E2B4 /* DancingScript-Regular_Bold.ttf */ = {isa = PBXFileReference; name = "DancingScript-Regular_Bold.ttf"; path = "../assets/fonts/DancingScript-Regular_Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +190,7 @@
 		13B07FAE1A68108700A75B9A /* ToDoApp */ = {
 			isa = PBXGroup;
 			children = (
+				A8A98E05247244EA0058DA7F /* ToDoApp.entitlements */,
 				A89B19D524548C0700508095 /* fonts */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -385,7 +387,23 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = B66DTGYFS9;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.VPNLite = {
+								enabled = 0;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -855,7 +873,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ToDoApp/ToDoApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B66DTGYFS9;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -868,10 +890,12 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nus.NotificationDemo;
 				PRODUCT_NAME = ToDoApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -882,7 +906,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ToDoApp/ToDoApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B66DTGYFS9;
 				INFOPLIST_FILE = ToDoApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -890,9 +918,11 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nus.NotificationDemo;
 				PRODUCT_NAME = ToDoApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
